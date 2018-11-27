@@ -3,6 +3,7 @@
 var openCards = [];
 var selectedCards = [];
 var match = false;
+const maxStars = 9;
 
 setup()
 initializeGame();
@@ -18,6 +19,7 @@ function initializeGame() {
     openCards = [];
     selectedCards = [];
     match = false;
+    updateStars(maxStars);
 }
 
 function addEventListenerToRestartButton() {
@@ -71,6 +73,15 @@ function addEventListenerToCard(card) {
             }
         }
     })
+}
+
+function updateStars(n) {
+    const stars = document.querySelector('.stars');
+    let s = "";
+    for (i=0; i<n; i++) {
+        s += "<li><i class=\"fa fa-star\"></i></li>";
+    }
+    stars.innerHTML = s;
 }
 
 function addShakeEventListenerToCard(card) {
