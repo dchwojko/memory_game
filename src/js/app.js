@@ -3,8 +3,9 @@
  */
 
 var hasWon = false;
-const maxMoves = 3;
-let remainingMoves = 3;
+const maxMoves = 9;
+let remainingMoves = maxMoves;
+const maxStars = 5;
 
 var cards = getCards();
 var selectedCards = [];
@@ -13,12 +14,36 @@ var indexes = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 
 var restartButton;
 
-handleRestart();
+setup();
+
+function setup() {
+    setupRestartButton();
+    initializeGame();
+}
+
+function initializeGame() {
+    initializeStars();
+    initializeTimer();
+    initializeMoves();
+    initializeCards();
+}
+
+function initializeStars() {
+    updateStars(maxStars);
+}
+function initializeTimer() {}
+function initializeMoves() {
+    remainingMoves = maxMoves;
+    updateMoves(maxMoves);
+}
+function initializeCards() {
+    handleRestart();
+}
 
 function setupRestartButton() {
     restartButton = document.querySelector('.restart');
     restartButton.addEventListener('click', function() {
-    handleRestart();
+        initializeGame();
     });
 }
 
@@ -26,7 +51,24 @@ function getCards() {
     return document.querySelectorAll('.card');
 }
 
+function updateStars(numberOfStars) {
+    stars = document.querySelector('.stars');
+    str = "";
+    for (i = 0; i < numberOfStars; i++) {
+        str += "<li><i class=\"fa fa-star\"></i></li>"
+    }
+    stars.innerHTML = str;
+}
 
+function updateMoves(numberOfMoves) {
+    moves = document.querySelector('.moves');
+    moves.textContent = numberOfMoves;
+}
+
+function decrementMoves() {
+    remainingMoves -= 1;
+    updateMoves(remainingMoves);
+}
 
 /* TO DO
 var scorePanel = document.querySelector('.score-panel');
@@ -58,20 +100,6 @@ function deal() {
  *   - add each card's HTML to the page
  */
 
- 
-
- function addEventListenerForDeck() {
-     for (card of cards) {
-         addEventListenerForCard(card);
-     }
- }
-
- function removeEventListenerForDeck() {
-     for (card of cards) {
-         removeEventListenerForCard(card);
-     }
- }
-
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -96,35 +124,25 @@ function resetCards() {
 }
 
 function setCardClassListToCard(card) {
-    card.classList = "card";
-    //console.log(card.classList);
+    card.className = "card";
 }
 
 function setCardClassListToShow(card) {
-    card.classList.toggle('open');
-    card.classList.toggle('show');
-    //console.log(card.classList);
+    card.className = "card open show";
 }
 
 function setCardClassListToMatch(card) {
-    card.classList.toggle('open');
-    card.classList.toggle('show');
-    card.classList.toggle('match');
-    //console.log(card.classList);
+    card.className = "card open show match apply-shake";
+}
+
+function setCardClassListToMismatch(card) {
+    card.className = "card open show apply-shake";
 }
 
 function handleRestart() {
-    //resetMoves();
     resetCards();
     deal();
 }
-
-function resetMoves() {
-    // TO DO
-    remainingMoves = maxMoves;
-}
-
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -148,6 +166,8 @@ function resetMoves() {
             if (selectedCards[0].innerHTML == selectedCards[1].innerHTML) {
                 updateMatchingCards(selectedCards);
             } else {
+                console.log('hi');
+                decrementMoves();
                 updateMismatchingCards(selectedCards);
             }
             selectedCards = [];
@@ -164,6 +184,9 @@ function updateMatchingCards(matchCards) {
 }
 
 function updateMismatchingCards(mismatchCards) {
+    for (mismatchCard of mismatchCards) {
+        setCardClassListToMismatch(mismatchCard);
+    }
     for (mismatchCard of mismatchCards) {
         setCardClassListToCard(mismatchCard);
     }
@@ -185,15 +208,52 @@ function updateMismatchingCards(mismatchCards) {
      }
  }
 
- function decrementNumberOfMoves() {
-     // TO DO:
- }
-
  function addEventListenerForCard(card) {
      //console.log('adding event listener');
      card.addEventListener('click', function() {
+         //revealCard(card);
+         
         handleCardClick(card);
+        
     });
+    card.addEventListener("animationend", (e) => {
+        //card.classList.remove("apply-shake");
+        setCardClassListToCard(card);
+    });
+ }
+
+ function checkSelectedCards() {
+     if (selectedCards.length == 2) {
+         if (selectedCards[0].innerHTML == selectedCards[1].innerHTML) {
+             for (selectedCard of selectedCards) {
+                 setCardClassListToMatch(selectedCard)
+             }
+         } else {
+             for (selectedCard of selectedCards) {
+                 setCardClassListToMismatch(selectedCards);
+                 //setCardClassListToCard(selectedCard);
+             }
+       }
+         selectedCards = [];
+     }
+ }
+
+ function revealCard(card) {
+     if (openCards.includes(card) || selectedCards.includes(card)) {
+         console.log('either open or selected')
+         return;
+     } else {
+         if (selectedCards.length < 2) {
+             selectedCards.push(card);
+             setCardClassListToShow(card);
+         } else {
+             checkSelectedCards();
+         }
+     }
+ }
+
+ function setCardClassListToMismatch(card) {
+
  }
 
  function removeEventListenerForCard(card) {
