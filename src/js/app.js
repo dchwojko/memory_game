@@ -4,12 +4,28 @@ var openCards = [];
 var selectedCards = [];
 var match = false;
 
+setup()
 initializeGame();
+
+function setup() {
+    addEventListenerToRestartButton();    
+}
+
 
 function initializeGame() {
     console.log('initializing game');
     initializeCards();
+    openCards = [];
+    selectedCards = [];
+    match = false;
 }
+
+function addEventListenerToRestartButton() {
+    document.querySelector('.restart').addEventListener('click', function() {
+        initializeGame();
+    })
+}
+
 
 function initializeCards() {
     console.log('initializing cards')
