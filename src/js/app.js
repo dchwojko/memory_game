@@ -2,6 +2,7 @@
 
 var openCards = [];
 var selectedCards = [];
+var match = false;
 
 initializeGame();
 
@@ -37,13 +38,15 @@ function addEventListenerToCard(card) {
             if (selectedCards.length == 2) {
                 // check for match
                 if (selectedCards[0].innerHTML == selectedCards[1].innerHTML) {
+                    match = true;
                     console.log('cards match');
                     openCards.push(selectedCards[0]);
                     openCards.push(selectedCards[1]);
-                    //console.log(`${openCards.length} of ${indexes.length} matched`)
+                    console.log(`${openCards.length} of ${document.querySelectorAll('.card').length} matched`)
                     selectedCards[0].className = "card open show match apply-shake";
                     selectedCards[1].className = "card open show match apply-shake";
                 } else {
+                    match = false;
                     console.log('cards do NOT match');
                     selectedCards[0].className = "card open show apply-shake";
                     selectedCards[1].className = "card open show apply-shake";
@@ -55,9 +58,11 @@ function addEventListenerToCard(card) {
 }
 
 function addShakeEventListenerToCard(card) {
-    
     card.addEventListener('animationend', function() {
-        card.className = "card";
+        // hide card if it is not part of a found match
+        if (!openCards.includes(card)) {
+            card.className = "card";
+        }
     });
 }
 
