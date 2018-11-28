@@ -4,28 +4,28 @@
  */
 
 // open cards means cards that are matched
-var openCards = [];
+let openCards = [];
 
 // selected cards means cards that have been revealed
-var selectedCards = [];
+let selectedCards = [];
 
-var match = false;
+let match = false;
 
 // Maximum # of stars
-const maxStars = 4;
-var currentStars = maxStars;
+const maxStars = 5;
+let currentStars = maxStars;
 
 // Maximum number of moves before user loses the game
-const maxMoves = 3;
+const maxMoves = 10;
 
-var currentMove = 0;
-var Interval;
-var seconds = 0;
+let currentMove = 0;
+let Interval;
+let seconds = 0;
 
-var gameStarted = false;
+let gameStarted = false;
 
 // Boolean for determining whether or not to lose a star for time penalty
-var starForLessThan30Seconds = true;
+let starForLessThan30Seconds = true;
 
 // Run setup and initialize the game. Game starts when user makes first card selection
 setup()
