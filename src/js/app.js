@@ -12,13 +12,14 @@ let selectedCards = [];
 let match = false;
 
 // Maximum # of stars
-const maxStars = 5;
+const maxStars = 3;
 let currentStars = maxStars;
 
 // Maximum number of moves before user loses the game
 const maxMoves = 10;
-
 let currentMove = 0;
+const movesStarThreshhold = 3;
+
 let Interval;
 let seconds = 0;
 
@@ -183,10 +184,12 @@ function handleCardClick(event) {
                 currentMove += 1;
                 updateMoves(currentMove);
 
-                // decrement stars and update ui
-                currentStars -=1;
-                updateStars(currentStars);
-
+                // lose a star when user hits max moves
+                if (currentMove == movesStarThreshhold) {
+                    currentStars -=1;
+                    updateStars(currentStars);
+                }
+                
                 // update styling
                 selectedCards[0].className = "card open show apply-shake";
                 selectedCards[1].className = "card open show apply-shake";
@@ -220,11 +223,11 @@ function addEventListenerToCard(card) {
 
 /*
  *  Check if player is out of moves.
- *  If out of moves, set stars to 0, stop tiemr and throw a popup message
+ *  If out of moves, set stars to 1, stop tiemr and throw a popup message
  */
 function checkMoves() {
     if (currentMove == maxMoves) {
-        currentStars = 0;
+        currentStars = 1;
         updateStars(currentStars);
         stopTimer();
         if (confirm(`Sorry, you exceedd the maximum number of ${maxMoves} moves!. Would you like to play again?`)) {
@@ -281,7 +284,6 @@ function addShakeEventListenerToCard(card) {
  */
 function handleAnimationEnd(event) {
     let card = event.target;
-    console.log(card);
     // hide card if it is not part of a found match
     if (!openCards.includes(card)) {
         card.className = "card";
