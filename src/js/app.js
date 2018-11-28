@@ -147,67 +147,71 @@ function initializeCards() {
  */
 function handleCardClick(event) {
     
-    // Ignore card clicks if game is over
-    if (gameOver) {
-        return;
-    }
+    // only handle click events for LI elements that are part of the deck node.
+    if (event.target.nodeName === 'LI') {
 
-    let card = event.target;
+        // Ignore card clicks if game is over
+        if (gameOver) {
+            return;
+        }
 
-    // Start the timer only when user makes first selection
-    if (!gameStarted) {
-        gameStarted = true;
-        startTimer();
-    }
-    
-    // Ignore card clicks for cards that have been matched or are currently selected
-    if (openCards.includes(card) || selectedCards.includes(card)) {
-        return;
-    } else {
-        // Reveal the card
-        card.className = "card open show";
+        let card = event.target;
 
-        // Add card to selected cards array
-        selectedCards.push(card);
+        // Start the timer only when user makes first selection
+        if (!gameStarted) {
+            gameStarted = true;
+            startTimer();
+        }
+        
+        // Ignore card clicks for cards that have been matched or are currently selected
+        if (openCards.includes(card) || selectedCards.includes(card)) {
+            return;
+        } else {
+            // Reveal the card
+            card.className = "card open show";
 
-        // If we have 2 selected cards that start processing for match
-        if (selectedCards.length == 2) {
-            // check for match
-            if (selectedCards[0].innerHTML == selectedCards[1].innerHTML) {
-                // cards match
-                match = true;
+            // Add card to selected cards array
+            selectedCards.push(card);
 
-                // add cards to list of matched cards
-                openCards.push(selectedCards[0]);
-                openCards.push(selectedCards[1]);
+            // If we have 2 selected cards that start processing for match
+            if (selectedCards.length == 2) {
+                // check for match
+                if (selectedCards[0].innerHTML == selectedCards[1].innerHTML) {
+                    // cards match
+                    match = true;
 
-                // mark cards as matched cards using styling
-                selectedCards[0].className = "card open show match apply-shake";
-                selectedCards[1].className = "card open show match apply-shake";
-            } else {
-                // cards do not match
-                match = false;
+                    // add cards to list of matched cards
+                    openCards.push(selectedCards[0]);
+                    openCards.push(selectedCards[1]);
 
-                // increment move counter and update ui
-                currentMove += 1;
-                updateMoves(currentMove);
+                    // mark cards as matched cards using styling
+                    selectedCards[0].className = "card open show match apply-shake";
+                    selectedCards[1].className = "card open show match apply-shake";
+                } else {
+                    // cards do not match
+                    match = false;
 
-                // lose a star when user hits max moves
-                if (currentMove == movesStarThreshhold) {
-                    currentStars -=1;
-                    updateStars(currentStars);
+                    // increment move counter and update ui
+                    currentMove += 1;
+                    updateMoves(currentMove);
+
+                    // lose a star when user hits max moves
+                    if (currentMove == movesStarThreshhold) {
+                        currentStars -=1;
+                        updateStars(currentStars);
+                    }
+                    
+                    // update styling
+                    selectedCards[0].className = "card open show apply-shake";
+                    selectedCards[1].className = "card open show apply-shake";
                 }
-                
-                // update styling
-                selectedCards[0].className = "card open show apply-shake";
-                selectedCards[1].className = "card open show apply-shake";
+
+                // check game status
+                checkGameStatus();
+
+                // null out the seleted cards array
+                selectedCards = [];
             }
-
-            // check game status
-            checkGameStatus();
-
-            // null out the seleted cards array
-            selectedCards = [];
         }
     }
 }
