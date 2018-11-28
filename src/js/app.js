@@ -4,12 +4,13 @@ var openCards = [];
 var selectedCards = [];
 var match = false;
 const maxStars = 4;
-const maxMoves = 10;
+var currentStars = maxStars;
+const maxMoves = 3;
 var currentMove = 0;
 var Interval;
 var seconds = 0;
 var gameStarted = false;
-
+var starForLessThan30Seconds = true;
 
 setup()
 initializeGame();
@@ -50,6 +51,13 @@ function startClock() {
     seconds++;
     let time = document.getElementById("timer");
     time.textContent = seconds;
+    if (starForLessThan30Seconds) {
+        if (seconds > 30) {
+            starForLessThan30Seconds = false;
+            currentStars -=1;
+            updateStars(currentStars);
+        }
+    }
 }
 
 function initializeGame() {
@@ -58,11 +66,13 @@ function initializeGame() {
     selectedCards = [];
     gameStarted = false;
     match = false;
-    updateStars(maxStars);
+    currentStars = maxStars;
+    updateStars(currentStars);
     currentMove = 0;
     updateMoves(currentMove);
     resetTimer();
     initializeCards();
+    starForLessThan30Seconds = true;
     if (openCards.length != 0) {console.log('opencards length is not 0');}
     if (selectedCards.length != 0) { console.log('selectedCards lenght is not 0')}
     if (document.querySelector('.moves').textContent != 0) { console.log('moves is not 0')}
