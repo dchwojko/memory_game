@@ -131,6 +131,7 @@ function addEventListenerToRestartButton() {
  */
 function initializeCards() {
     let deck = document.querySelector('.deck');
+    const fragment = document.createDocumentFragment();
     let cards = document.querySelectorAll('.card');
     deck.innerHTML = "";
     var indexes = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
@@ -138,8 +139,9 @@ function initializeCards() {
     for (let index of indexes) {
         let card = cards[index];
         card.className = "card"
-        deck.appendChild(card);
+        fragment.appendChild(card);
     } 
+    deck.appendChild(fragment);
 }
 
 /*
