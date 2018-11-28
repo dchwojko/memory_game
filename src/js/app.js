@@ -4,10 +4,11 @@ var openCards = [];
 var selectedCards = [];
 var match = false;
 const maxStars = 4;
-const maxMoves = 3;
+const maxMoves = 10;
 var currentMove = 0;
 var Interval;
 var seconds = 0;
+var gameStarted = false;
 
 
 setup()
@@ -17,7 +18,7 @@ function setup() {
     addEventListenerToRestartButton();
     insertTimer()
     resetTimer();
-    startTimer();
+    
 }
 
 function insertTimer() {
@@ -50,6 +51,7 @@ function initializeGame() {
     initializeCards();
     openCards = [];
     selectedCards = [];
+    gameStarted = false;
     match = false;
     updateStars(maxStars);
     currentMove = 0;
@@ -86,6 +88,10 @@ function initializeCards() {
 }
 
 function handleCardClick(card) {
+    if (!gameStarted) {
+        gameStarted = true;
+        startTimer();
+    }
     if (openCards.includes(card) || selectedCards.includes(card)) {
         // IGNORE CLICK - DON'T DO ANYTHING
         return;
@@ -102,7 +108,7 @@ function handleCardClick(card) {
                 console.log(`${openCards.length} of ${document.querySelectorAll('.card').length} matched`)
                 selectedCards[0].className = "card open show match apply-shake";
                 selectedCards[1].className = "card open show match apply-shake";
-                checkWin();
+                //checkWin();
             } else {
                 match = false;
                 console.log('cards do NOT match');
@@ -110,11 +116,17 @@ function handleCardClick(card) {
                 updateMoves(currentMove);
                 selectedCards[0].className = "card open show apply-shake";
                 selectedCards[1].className = "card open show apply-shake";
-                checkMoves();
+                //checkMoves();
             }
+            checkGameStatus();
             selectedCards = [];
         }
     }
+}
+
+function checkGameStatus() {
+    checkWin();
+    checkMoves();
 }
 
 function addEventListenerToCard(card) {
