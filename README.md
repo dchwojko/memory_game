@@ -5,16 +5,13 @@
 * [Instructions](#instructions)
 * [Contributing](#contributing)
 
+## Goal of the Game
+The goal of the game is to match the identical card pairs until there is no more cards to match and within the number of moves limit. The faster you complete this goal and using fewer moves will result in a better star rating (0 stars for losing, 1-4 stars if you win and based on time/number of moves used). If you exceed the max number of moves (3), then you lose the game.
+
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+To start the game simply click any of the cards. The timer will begin. Clicking a card will reveal the card. After you select a second card, if the 2 revealed cards match, then they will stay open. If the 2 revealed cards do not match, then they will be hidden.
 
-To get started, open `js/app.js` and start building out the app's functionality
+## Starter Code
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+Starter code was provided by udacity at https://github.com/udacity/fend-project-memory-game
