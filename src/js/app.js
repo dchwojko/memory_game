@@ -120,9 +120,7 @@ function initializeGame() {
  * Restart button event handler
  */
 function addEventListenerToRestartButton() {
-    document.querySelector('.restart').addEventListener('click', function() {
-        initializeGame();
-    })
+    document.querySelector('.restart').addEventListener('click', initializeGame);
 }
 
 /*
