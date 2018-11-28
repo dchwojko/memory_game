@@ -239,7 +239,7 @@ function checkMoves() {
         currentStars = 1;
         updateStars(currentStars);
         stopTimer();
-        if (confirm(`Sorry, you exceedd the maximum number of ${maxMoves} moves!. Would you like to play again?`)) {
+        if (confirm(`Sorry, you exceeded the maximum number of ${maxMoves} moves!. Would you like to play again?`)) {
             initializeGame();
         }
     }
