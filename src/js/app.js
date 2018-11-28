@@ -240,7 +240,8 @@ function checkMoves() {
 function checkWin() {
     if (openCards.length == document.querySelectorAll('.card').length) {
         stopTimer();
-        if (confirm(`Congratulations! You won the game in ${seconds} seconds and ${currentStars} stars. Would you like to play the game?`)) {
+        if (confirm(`Congratulations! You won the game in ${seconds} seconds and ${currentMove}.
+Your rating is${currentStars} stars. Would you like to play the game?`)) {
             initializeGame();
         }
     }
