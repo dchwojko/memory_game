@@ -17,6 +17,11 @@ initializeGame();
 function setup() {
     addEventListenerToRestartButton();
     insertTimer()
+    let cards = document.querySelectorAll('.card');
+    for (let card of cards) {
+        addEventListenerToCard(card);
+        addShakeEventListenerToCard(card);
+    }
     
 }
 
@@ -81,10 +86,6 @@ function initializeCards() {
     for (let index of indexes) {
         let card = cards[index];
         card.className = "card"
-        removeEventListenerToCard(card);
-        removeShakeEventListenerToCard(card);
-        addEventListenerToCard(card);
-        addShakeEventListenerToCard(card);
         deck.appendChild(card);
     } 
 }
