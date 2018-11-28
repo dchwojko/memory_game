@@ -43,10 +43,10 @@ function setup() {
 
     // Add event listeners to the cards
     let cards = document.querySelectorAll('.card');
-    for (let card of cards) {
-        addEventListenerToCard(card);
-        addShakeEventListenerToCard(card);
-    }
+
+    const deck = document.querySelector('.deck');
+    deck.addEventListener('click', handleCardClick);
+    deck.addEventListener('animationend', handleAnimationEnd);
 }
 
 /*
@@ -142,7 +142,9 @@ function initializeCards() {
 /*
  *  Handle card click
  */
-function handleCardClick(card) {
+function handleCardClick(event) {
+    let card = event.target;
+    console.log(card);
     // Start the timer only when user makes first selection
     if (!gameStarted) {
         gameStarted = true;
@@ -276,7 +278,9 @@ function addShakeEventListenerToCard(card) {
 /*
  * When cards are done shaking and if card is not part of a match, then hide card via styling
  */
-function handleAnimationEnd(card) {
+function handleAnimationEnd(event) {
+    let card = event.target;
+    console.log(card);
     // hide card if it is not part of a found match
     if (!openCards.includes(card)) {
         card.className = "card";
