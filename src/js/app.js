@@ -17,18 +17,19 @@ initializeGame();
 function setup() {
     addEventListenerToRestartButton();
     insertTimer()
-    resetTimer();
     
 }
 
 function insertTimer() {
     const restart = document.querySelector('.restart');
-    restart.insertAdjacentHTML('beforebegin', '<span class="timer">Time: <span id="timer">9</span> seconds</span>')
+    restart.insertAdjacentHTML('beforebegin', `<span class="timer">Time: <span id="timer">${seconds}</span> seconds</span>`)
 }
 
 function resetTimer() {
+    stopTimer();
+    seconds = 0;
     let time = document.getElementById("timer");
-    time.textContent = 0;
+    time.textContent = seconds;
 }
 
 function startTimer() {
@@ -56,6 +57,7 @@ function initializeGame() {
     updateStars(maxStars);
     currentMove = 0;
     updateMoves(currentMove);
+    resetTimer();
     if (openCards.length != 0) {console.log('opencards length is not 0');}
     if (selectedCards.length != 0) { console.log('selectedCards lenght is not 0')}
     if (document.querySelector('.moves').textContent != 0) { console.log('moves is not 0')}
