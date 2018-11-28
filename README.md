@@ -24,7 +24,7 @@ with the elapsed time, number of moves and star rating. The player can restart t
 clicking OK.
 
 ## How to Lose
-The player will lose, if the number of moves exceeds the maximum number of moves (10).
+The player will lose, if the number of moves exceeds the maximum number of moves (15).
 A popup will appear indicating the player has lost. The player can restart the game by
 clicking OK.
 

@@ -16,7 +16,7 @@ const maxStars = 3;
 let currentStars = maxStars;
 
 // Maximum number of moves before user loses the game
-const maxMoves = 10;
+const maxMoves = 15;
 let currentMove = 0;
 const movesStarThreshhold = 3;
 
