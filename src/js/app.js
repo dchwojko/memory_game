@@ -24,6 +24,7 @@ let Interval;
 let seconds = 0;
 
 let gameStarted = false;
+let gameOver = false;
 
 // Boolean for determining whether or not to lose a star for time penalty
 let starForLessThan30Seconds = true;
@@ -115,6 +116,7 @@ function initializeGame() {
     resetTimer();
     initializeCards();
     starForLessThan30Seconds = true;
+    gameOver = false;
 }
 
 /*
@@ -144,8 +146,14 @@ function initializeCards() {
  *  Handle card click
  */
 function handleCardClick(event) {
+    
+    // Ignore card clicks if game is over
+    if (gameOver) {
+        return;
+    }
+
     let card = event.target;
-    console.log(card);
+
     // Start the timer only when user makes first selection
     if (!gameStarted) {
         gameStarted = true;
@@ -227,6 +235,7 @@ function addEventListenerToCard(card) {
  */
 function checkMoves() {
     if (currentMove == maxMoves) {
+        gameOver = true;
         currentStars = 1;
         updateStars(currentStars);
         stopTimer();
