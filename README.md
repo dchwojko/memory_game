@@ -21,3 +21,7 @@ will reveal the card. After you select a second card, if the 2 revealed cards ma
 ## Starter Code
 
 Starter code was provided by udacity at https://github.com/udacity/fend-project-memory-game
+
+## Dependencies
+- https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css
+- https://fonts.googleapis.com/css?family=Coda
