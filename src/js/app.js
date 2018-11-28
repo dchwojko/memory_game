@@ -219,15 +219,6 @@ function addEventListenerToCard(card) {
 }
 
 /*
- * Remove card click event handler
- */
-function removeEventListenerToCard(card) {
-    card.removeEventListener('click', function() {
-        handleCardClick(card);
-    })
-}
-
-/*
  *  Check if player is out of moves.
  *  If out of moves, set stars to 0, stop tiemr and throw a popup message
  */
@@ -280,12 +271,6 @@ function updateMoves(n) {
  */
 function addShakeEventListenerToCard(card) {
     card.addEventListener('animationend', function() {
-        handleAnimationEnd(card);
-    });
-}
-
-function removeShakeEventListenerToCard(card) {
-    card.removeEventListener('animationend', function() {
         handleAnimationEnd(card);
     });
 }
